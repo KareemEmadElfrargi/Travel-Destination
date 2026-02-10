@@ -42,5 +42,9 @@ public class DestinationService {
         }
         destinationRepository.deleteById(id);
     }
+
+    public List<Destination> searchDestinations(String query) {
+        return destinationRepository.findByCountryContainingIgnoreCaseOrCapitalContainingIgnoreCase(query, query);
+    }
 }
 
