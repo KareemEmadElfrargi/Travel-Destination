@@ -1,10 +1,12 @@
 package com.fawry.task.backend.traveldestination.controller;
 
 import com.fawry.task.backend.traveldestination.dto.ApiResponse;
+import com.fawry.task.backend.traveldestination.dto.PaginatedResponse;
 import com.fawry.task.backend.traveldestination.model.Destination;
 import com.fawry.task.backend.traveldestination.service.DestinationService;
 import com.fawry.task.backend.traveldestination.service.WishlistService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +21,25 @@ public class UserController {
     private final WishlistService wishlistService;
 
     @GetMapping("/destinations")
-    public ResponseEntity<ApiResponse<List<Destination>>> getAllDestinations() {
-        List<Destination> destinations = destinationService.getAllDestinations();
-        return ResponseEntity.ok(ApiResponse.<List<Destination>>builder()
+    public ResponseEntity<ApiResponse<PaginatedResponse<List<Destination>>>> getAllDestinations(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<Destination> destinations = destinationService.getAllDestinations(page,size);
+
+        PaginatedResponse<List<Destination>> response = PaginatedResponse.<List<Destination>>builder()
+                .content(destinations.getContent())
+                .pageNo(destinations.getNumber())
+                .pageSize(destinations.getSize())
+                .totalElements(destinations.getTotalElements())
+                .totalPages(destinations.getTotalPages())
+                .last(destinations.isLast())
+                .build();
+
+        return ResponseEntity.ok(ApiResponse.<PaginatedResponse<List<Destination>>>builder()
                 .success(true)
                 .message("Destinations fetched successfully")
-                .data(destinations)
+                .data(response)
                 .build());
     }
     @GetMapping("/destinations/{id}")

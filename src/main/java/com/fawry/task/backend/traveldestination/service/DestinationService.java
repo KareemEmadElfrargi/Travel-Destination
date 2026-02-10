@@ -5,6 +5,9 @@ import com.fawry.task.backend.traveldestination.dto.DestinationRequest;
 import com.fawry.task.backend.traveldestination.model.Destination;
 import com.fawry.task.backend.traveldestination.repository.DestinationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +30,9 @@ public class DestinationService {
         return destinationRepository.save(destination);
     }
 
-    public List<Destination> getAllDestinations() {
-        return destinationRepository.findAll();
+    public Page<Destination> getAllDestinations(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return destinationRepository.findAll(pageable);
     }
 
     public Destination getDestinationById(int id) {
