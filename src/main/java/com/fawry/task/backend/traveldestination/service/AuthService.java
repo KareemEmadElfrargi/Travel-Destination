@@ -1,5 +1,7 @@
 package com.fawry.task.backend.traveldestination.service;
 
+import com.fawry.task.backend.traveldestination.dto.LoginRequest;
+import com.fawry.task.backend.traveldestination.dto.LoginResponse;
 import com.fawry.task.backend.traveldestination.dto.RegisterRequest;
 import com.fawry.task.backend.traveldestination.model.Role;
 import com.fawry.task.backend.traveldestination.model.User;
@@ -24,6 +26,17 @@ public class AuthService {
                 .role(Role.valueOf(request.role().toUpperCase()))
                 .build();
         userRepository.save(user);
+    }
+
+    public LoginResponse login(LoginRequest request) {
+        User user = userRepository.findByUsername(request.username())
+                .orElseThrow(() -> new RuntimeException("Username not found"));
+        System.out.println("Input password: " + request.password());
+        System.out.println("Stored password: " + user.getPassword());
+        System.out.println("Matches: " + passwordEncoder.matches(request.password(), user.getPassword()));
+
+        return new LoginResponse("Fake token");
+
     }
 
 }

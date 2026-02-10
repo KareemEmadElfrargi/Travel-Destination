@@ -22,7 +22,7 @@ public class TravelDestinationApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.findByUsername("kareem").isEmpty()) {
             User admin = User.builder()
                     .username("kareem")
                     .password(passwordEncoder.encode("8561"))

@@ -1,8 +1,10 @@
 package com.fawry.task.backend.traveldestination.controller;
 
 import com.fawry.task.backend.traveldestination.dto.ApiResponse;
+import com.fawry.task.backend.traveldestination.dto.DestinationRequest;
 import com.fawry.task.backend.traveldestination.model.Destination;
 import com.fawry.task.backend.traveldestination.repository.DestinationRepository;
+import com.fawry.task.backend.traveldestination.service.DestinationService;
 import com.fawry.task.backend.traveldestination.service.ExternalApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,13 @@ import java.util.List;
 public class AdminController {
     private final ExternalApiService externalApiService;
     private final DestinationRepository destinationRepository;
+    private final DestinationService destinationService;
+
 
     @GetMapping("/suggestions")
     public ResponseEntity<ApiResponse<List<Destination>>> getSuggestions() {
         List<Destination> destinations = externalApiService.fetchDestinations();
+
         return ResponseEntity.ok(
                 ApiResponse.<List<Destination>>builder()
                         .success(true)
@@ -28,8 +33,9 @@ public class AdminController {
     }
 
     @PostMapping("/destinations")
-    public ResponseEntity<ApiResponse<Destination>> addDestination(@RequestBody Destination destination) {
-        Destination savedDestination = destinationRepository.save(destination);
+    public ResponseEntity<ApiResponse<Destination>> addDestination(@RequestBody DestinationRequest request) {
+        Destination savedDestination = destinationService.addDestination(request);
+
         return ResponseEntity.ok(
                 ApiResponse.<Destination>builder()
                         .success(true)
@@ -40,6 +46,7 @@ public class AdminController {
     @DeleteMapping("/destinations/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteDestination(@PathVariable int id) {
         destinationRepository.deleteById(id);
+
         return ResponseEntity.ok(ApiResponse.<Void>builder()
                 .success(true)
                 .message("Destination deleted successfully")

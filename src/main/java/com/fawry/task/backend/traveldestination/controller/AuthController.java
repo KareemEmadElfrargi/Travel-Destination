@@ -1,6 +1,8 @@
 package com.fawry.task.backend.traveldestination.controller;
 
 import com.fawry.task.backend.traveldestination.dto.ApiResponse;
+import com.fawry.task.backend.traveldestination.dto.LoginRequest;
+import com.fawry.task.backend.traveldestination.dto.LoginResponse;
 import com.fawry.task.backend.traveldestination.dto.RegisterRequest;
 import com.fawry.task.backend.traveldestination.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +27,17 @@ public class AuthController {
                 .message("User registered successfully")
                 .data(null)
                 .build());
+    }
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
+        LoginResponse token = authService.login(request);
+        return ResponseEntity.ok(
+                ApiResponse.<LoginResponse>builder()
+                        .success(true)
+                        .message("User logged in successfully")
+                        .data(token)
+                        .build()
+        );
+
     }
 }
