@@ -1,5 +1,6 @@
 package com.fawry.task.backend.traveldestination.controller;
 
+import com.fawry.task.backend.traveldestination.dto.ApiResponse;
 import com.fawry.task.backend.traveldestination.dto.RegisterRequest;
 import com.fawry.task.backend.traveldestination.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiResponse<String>> register(@RequestBody RegisterRequest request) {
         authService.register(request);
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok(ApiResponse.<String>builder()
+                .success(true)
+                .message("User registered successfully")
+                .data(null)
+                .build());
     }
 }
