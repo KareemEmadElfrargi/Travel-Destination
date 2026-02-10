@@ -1,4 +1,7 @@
 package com.fawry.task.backend.traveldestination.repository;
 
-public interface DestinationRepository {
+import com.fawry.task.backend.traveldestination.model.Destination;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DestinationRepository extends JpaRepository<Destination,Integer> {
 }
