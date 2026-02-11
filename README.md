@@ -66,7 +66,7 @@ A Spring Boot backend application for managing travel destinations, featuring Ad
 ###  Authentication
 | Method | Endpoint | Description | Public |
 | :--- | :--- | :--- | :---: |
-| `POST` | `//auth/register` | Register a new user (`ADMIN` or `USER`) | ✅ |
+| `POST` | `/auth/register` | Register a new user (`ADMIN` or `USER`) | ✅ |
 | `POST` | `/auth/login` | Login and receive JWT Token | ✅ |
 
 ###  Admin Operations (Requires `ROLE_ADMIN`)
