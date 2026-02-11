@@ -1,4 +1,9 @@
 package com.fawry.task.backend.traveldestination.dto;
 
-public record LoginRequest(String username, String password) {
+import jakarta.validation.constraints.NotNull;
+
+public record LoginRequest(@NotNull(message = "Username is mandatory")
+                           String username,
+                           @NotNull(message = "Password is mandatory")
+                           String password) {
 }

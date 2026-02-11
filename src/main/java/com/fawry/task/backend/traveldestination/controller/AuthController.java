@@ -2,6 +2,7 @@ package com.fawry.task.backend.traveldestination.controller;
 
 import com.fawry.task.backend.traveldestination.dto.*;
 import com.fawry.task.backend.traveldestination.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,14 +19,14 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<RegisterResponse>> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiResponse<RegisterResponse>> register(@Valid @RequestBody RegisterRequest request) {
         var token = authService.register(request);
 
         return ResponseEntity.ok(ApiResponse.success(token, "User registered successfully"));
 
     }
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest request) {
         LoginResponse token = authService.login(request);
 
         return ResponseEntity.ok(ApiResponse.success(token, "User registered successfully"));

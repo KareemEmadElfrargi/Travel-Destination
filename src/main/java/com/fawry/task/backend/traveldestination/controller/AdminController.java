@@ -6,7 +6,9 @@ import com.fawry.task.backend.traveldestination.model.Destination;
 import com.fawry.task.backend.traveldestination.repository.DestinationRepository;
 import com.fawry.task.backend.traveldestination.service.DestinationService;
 import com.fawry.task.backend.traveldestination.service.ExternalApiService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,14 +31,14 @@ public class AdminController {
     }
 
     @PostMapping("/destinations")
-    public ResponseEntity<ApiResponse<Destination>> addDestination(@RequestBody DestinationRequest request) {
+    public ResponseEntity<ApiResponse<Destination>> addDestination(@Valid @RequestBody DestinationRequest request) {
         Destination savedDestination = destinationService.addDestination(request);
 
         return ResponseEntity.ok(ApiResponse.success(savedDestination, "Destination added successfully"));
 
     }
     @PostMapping("/destinations/bulk")
-    public ResponseEntity<ApiResponse<List<Destination>>> addDestinationsBulk(@RequestBody List<DestinationRequest> requests) {
+    public ResponseEntity<ApiResponse<List<Destination>>> addDestinationsBulk(@RequestBody List<@Valid DestinationRequest> requests) {
         List<Destination> savedDestinations = destinationService.addDestinations(requests);
         return ResponseEntity.ok(ApiResponse.success(savedDestinations, "Destinations bulk added successfully"));
     }
