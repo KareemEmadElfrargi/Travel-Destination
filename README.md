@@ -61,15 +61,15 @@ A Spring Boot backend application for managing travel destinations, featuring Ad
     - **Username**: `kareem`
     - **Password**: `8561`
 
-## 📚 API Endpoints
+##  API Endpoints
 
-### 🔐 Authentication
+###  Authentication
 | Method | Endpoint | Description | Public |
 | :--- | :--- | :--- | :---: |
 | `POST` | `/api/auth/register` | Register a new user (`ADMIN` or `USER`) | ✅ |
 | `POST` | `/api/auth/login` | Login and receive JWT Token | ✅ |
 
-### 🛠️ Admin Operations (Requires `ROLE_ADMIN`)
+###  Admin Operations (Requires `ROLE_ADMIN`)
 | Method | Endpoint | Description | Payload |
 | :--- | :--- | :--- | :--- |
 | `GET` | `/api/admin/suggestions` | Fetch destination suggestions from External API | - |
@@ -77,7 +77,7 @@ A Spring Boot backend application for managing travel destinations, featuring Ad
 | `POST` | `/api/admin/destinations/bulk` | Bulk add destinations | `[ { ... }, { ... } ]` |
 | `DELETE` | `/api/admin/destinations/{id}` | Delete a destination | - |
 
-### 👤 User Operations (Requires `ROLE_USER` or `ROLE_ADMIN`)
+###  User Operations (Requires `ROLE_USER` or `ROLE_ADMIN`)
 | Method | Endpoint | Description | Parameters |
 | :--- | :--- | :--- | :--- |
 | `GET` | `/api/user/destinations` | Get all destinations (Paginated) | `?page=0&size=10` |
