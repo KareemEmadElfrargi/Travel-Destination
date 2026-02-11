@@ -1,5 +1,6 @@
 package com.fawry.task.backend.traveldestination.service;
 
+import com.fawry.task.backend.traveldestination.exception.ResourceNotFoundException;
 import com.fawry.task.backend.traveldestination.model.Destination;
 import com.fawry.task.backend.traveldestination.model.User;
 import com.fawry.task.backend.traveldestination.repository.DestinationRepository;
@@ -20,13 +21,13 @@ public class WishlistService {
     private User getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
     @Transactional
     public void addToWishlist(int destinationId){
         User user = getCurrentUser();
         Destination destination = destinationRepository.findById(destinationId)
-                .orElseThrow(() -> new RuntimeException("Destination not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Destination not found"));
 
         user.getWishlist().add(destination);
         userRepository.save(user);
@@ -35,7 +36,7 @@ public class WishlistService {
     public void removeFromWishlist(int destinationId) {
         User user = getCurrentUser();
         Destination destination = destinationRepository.findById(destinationId)
-                .orElseThrow(() -> new RuntimeException("Destination not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Destination not found"));
 
         user.getWishlist().remove(destination);
         userRepository.save(user);

@@ -22,22 +22,15 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<String>> register(@RequestBody RegisterRequest request) {
         authService.register(request);
-        return ResponseEntity.ok(ApiResponse.<String>builder()
-                .success(true)
-                .message("User registered successfully")
-                .data(null)
-                .build());
+
+        return ResponseEntity.ok(ApiResponse.success(null, "User registered successfully"));
+
     }
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
         LoginResponse token = authService.login(request);
-        return ResponseEntity.ok(
-                ApiResponse.<LoginResponse>builder()
-                        .success(true)
-                        .message("User logged in successfully")
-                        .data(token)
-                        .build()
-        );
+
+        return ResponseEntity.ok(ApiResponse.success(token, "User registered successfully"));
 
     }
 }

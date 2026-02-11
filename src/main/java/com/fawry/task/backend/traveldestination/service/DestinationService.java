@@ -2,6 +2,7 @@ package com.fawry.task.backend.traveldestination.service;
 
 
 import com.fawry.task.backend.traveldestination.dto.DestinationRequest;
+import com.fawry.task.backend.traveldestination.exception.ResourceNotFoundException;
 import com.fawry.task.backend.traveldestination.model.Destination;
 import com.fawry.task.backend.traveldestination.repository.DestinationRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +38,12 @@ public class DestinationService {
 
     public Destination getDestinationById(int id) {
         return destinationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Destination not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Destination not found"));
     }
 
     public void deleteDestination(int id) {
         if (!destinationRepository.existsById(id)) {
-            throw new RuntimeException("Destination not found");
+            throw new ResourceNotFoundException("Destination not found");
         }
         destinationRepository.deleteById(id);
     }

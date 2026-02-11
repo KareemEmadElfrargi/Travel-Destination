@@ -25,32 +25,23 @@ public class AdminController {
     public ResponseEntity<ApiResponse<List<Destination>>> getSuggestions() {
         List<Destination> destinations = externalApiService.fetchDestinations();
 
-        return ResponseEntity.ok(
-                ApiResponse.<List<Destination>>builder()
-                        .success(true)
-                        .message("Suggestions fetched successfully")
-                        .data(destinations).build());
+        return ResponseEntity.ok(ApiResponse.success(destinations, "Suggestions fetched successfully"));
     }
 
     @PostMapping("/destinations")
     public ResponseEntity<ApiResponse<Destination>> addDestination(@RequestBody DestinationRequest request) {
         Destination savedDestination = destinationService.addDestination(request);
 
-        return ResponseEntity.ok(
-                ApiResponse.<Destination>builder()
-                        .success(true)
-                        .message("Destination added successfully")
-                        .data(savedDestination).build());
+        return ResponseEntity.ok(ApiResponse.success(savedDestination, "Destination added successfully"));
+
     }
 
     @DeleteMapping("/destinations/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteDestination(@PathVariable int id) {
         destinationRepository.deleteById(id);
 
-        return ResponseEntity.ok(ApiResponse.<Void>builder()
-                .success(true)
-                .message("Destination deleted successfully")
-                .build());
+        return ResponseEntity.ok(ApiResponse.success(null, "Destination deleted successfully"));
+
     }
 
 
