@@ -21,13 +21,18 @@ public class DestinationService {
     private final DestinationRepository destinationRepository;
 
     public Destination addDestination(DestinationRequest request) {
+        if (destinationRepository.existsByCountryIgnoreCase(request.country())) {
+            throw new IllegalArgumentException("Destination with country " + request.country() + " already exists");
+        }
         Destination destination = mapRequestToEntity(request);
         return destinationRepository.save(destination);
     }
     public List<Destination> addDestinations(List<DestinationRequest> requests){
         List<Destination> destinations = requests.stream()
+                .filter(request -> !destinationRepository.existsByCountryIgnoreCase(request.country()))
                 .map(this::mapRequestToEntity)
                 .toList();
+        if (destinations.isEmpty()) return List.of();
         return destinationRepository.saveAll(destinations);
     }
 
@@ -63,4 +68,3 @@ public class DestinationService {
                 .build();
     }
 }
-

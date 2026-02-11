@@ -1,6 +1,7 @@
 package com.fawry.task.backend.traveldestination.repository;
 
 import com.fawry.task.backend.traveldestination.model.Destination;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,5 @@ import java.util.List;
 public interface DestinationRepository extends JpaRepository<Destination,Integer> {
     List<Destination> findByCountryContainingIgnoreCaseOrCapitalContainingIgnoreCase(String country, String capital);
 
+    boolean existsByCountryIgnoreCase(String country);
 }
