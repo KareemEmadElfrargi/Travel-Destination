@@ -54,7 +54,7 @@ A Spring Boot backend application for managing travel destinations, featuring Ad
     ```bash
     mvn spring-boot:run
     ```
-    Or run `TravelPlannerApplication.java` from your IDE.
+    Or run `TravelPlannerApplication.java` from your IDE on port 8081
 
 4.  **Default Admin User**:
     On the first run, the app will automatically create an Admin user:
@@ -66,26 +66,26 @@ A Spring Boot backend application for managing travel destinations, featuring Ad
 ###  Authentication
 | Method | Endpoint | Description | Public |
 | :--- | :--- | :--- | :---: |
-| `POST` | `/api/auth/register` | Register a new user (`ADMIN` or `USER`) | ✅ |
-| `POST` | `/api/auth/login` | Login and receive JWT Token | ✅ |
+| `POST` | `/auth/register` | Register a new user (`ADMIN` or `USER`) | ✅ |
+| `POST` | `/auth/login` | Login and receive JWT Token | ✅ |
 
 ###  Admin Operations (Requires `ROLE_ADMIN`)
 | Method | Endpoint | Description | Payload |
 | :--- | :--- | :--- | :--- |
-| `GET` | `/api/admin/suggestions` | Fetch destination suggestions from External API | - |
-| `POST` | `/api/admin/destinations` | Add a single destination | `{ "country": "...", ... }` |
-| `POST` | `/api/admin/destinations/bulk` | Bulk add destinations | `[ { ... }, { ... } ]` |
-| `DELETE` | `/api/admin/destinations/{id}` | Delete a destination | - |
+| `GET` | `/admin/suggestions` | Fetch destination suggestions from External API | - |
+| `POST` | `/admin/destinations` | Add a single destination | `{ "country": "...", ... }` |
+| `POST` | `/admin/destinations/bulk` | Bulk add destinations | `[ { ... }, { ... } ]` |
+| `DELETE` | `/admin/destinations/{id}` | Delete a destination | - |
 
 ###  User Operations (Requires `ROLE_USER` or `ROLE_ADMIN`)
 | Method | Endpoint | Description | Parameters |
 | :--- | :--- | :--- | :--- |
-| `GET` | `/api/user/destinations` | Get all destinations (Paginated) | `?page=0&size=10` |
-| `GET` | `/api/user/destinations/{id}` | Get details of a specific destination | - |
-| `GET` | `/api/user/destinations/search` | Search by Country or Capital | `?query=Egypt` |
-| `GET` | `/api/user/wishlist` | Get current user's wishlist | - |
-| `POST` | `/api/user/wishlist/{id}` | Add destination to wishlist | - |
-| `DELETE`| `/api/user/wishlist/{id}` | Remove destination from wishlist | - |
+| `GET` | `/user/destinations` | Get all destinations (Paginated) | `?page=0&size=10` |
+| `GET` | `/user/destinations/{id}` | Get details of a specific destination | - |
+| `GET` | `/user/destinations/search` | Search by Country or Capital | `?query=Egypt` |
+| `GET` | `/user/wishlist` | Get current user's wishlist | - |
+| `POST` | `/user/wishlist/{id}` | Add destination to wishlist | - |
+| `DELETE`| `/user/wishlist/{id}` | Remove destination from wishlist | - |
 
 
 ##  Demo Video
