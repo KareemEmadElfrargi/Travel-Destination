@@ -54,7 +54,7 @@ A Spring Boot backend application for managing travel destinations, featuring Ad
     ```bash
     mvn spring-boot:run
     ```
-    Or run `TravelPlannerApplication.java` from your IDE.
+    Or run `TravelPlannerApplication.java` from your IDE on port 8081
 
 4.  **Default Admin User**:
     On the first run, the app will automatically create an Admin user:
