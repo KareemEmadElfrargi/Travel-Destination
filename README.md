@@ -87,6 +87,26 @@ A Spring Boot backend application for managing travel destinations, featuring Ad
 | `POST` | `/api/user/wishlist/{id}` | Add destination to wishlist | - |
 | `DELETE`| `/api/user/wishlist/{id}` | Remove destination from wishlist | - |
 
+
+##  Demo Video
+
+This demo showcases **Admin & User operations**, including:
+- Admin destination management (add / bulk add / delete)
+- User browsing, search, and wishlist features
+- Pagination and role-based access control
+
+## 🎥 Demo Video
+
+This video provides a full walkthrough of the **Travel Destinations REST API**, including:
+- Admin operations (add, bulk add, delete destinations)
+- User operations (browse, search, wishlist)
+- Pagination & role-based access control using Spring Security & JWT
+
+▶️ **Watch the demo on YouTube:**  
+https://youtu.be/DJLcv4FN420
+
+
+
 ##  Data Structures
 
 ### Destination Request JSON (Example)
