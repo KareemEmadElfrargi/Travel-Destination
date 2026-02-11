@@ -35,6 +35,11 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.success(savedDestination, "Destination added successfully"));
 
     }
+    @PostMapping("/destinations/bulk")
+    public ResponseEntity<ApiResponse<List<Destination>>> addDestinationsBulk(@RequestBody List<DestinationRequest> requests) {
+        List<Destination> savedDestinations = destinationService.addDestinations(requests);
+        return ResponseEntity.ok(ApiResponse.success(savedDestinations, "Destinations bulk added successfully"));
+    }
 
     @DeleteMapping("/destinations/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteDestination(@PathVariable int id) {
