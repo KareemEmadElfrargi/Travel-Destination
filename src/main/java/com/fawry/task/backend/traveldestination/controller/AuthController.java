@@ -2,11 +2,8 @@ package com.fawry.task.backend.traveldestination.controller;
 
 import com.fawry.task.backend.traveldestination.dto.*;
 import com.fawry.task.backend.traveldestination.service.AuthService;
-import com.fawry.task.backend.traveldestination.service.JwtService;
-import com.fawry.task.backend.traveldestination.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
