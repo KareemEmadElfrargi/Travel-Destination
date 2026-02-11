@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +20,14 @@ public class DestinationService {
     private final DestinationRepository destinationRepository;
 
     public Destination addDestination(DestinationRequest request) {
-        Destination destination = Destination.builder()
-                .country(request.country())
-                .capital(request.capital())
-                .region(request.region())
-                .population(request.population())
-                .currency(request.currency())
-                .flagImageUrl(request.flagImageUrl())
-                .build();
+        Destination destination = mapRequestToEntity(request);
         return destinationRepository.save(destination);
+    }
+    public List<Destination> addDestinations(List<DestinationRequest> requests){
+        List<Destination> destinations = requests.stream()
+                .map(this::mapRequestToEntity)
+                .toList();
+        return destinationRepository.saveAll(destinations);
     }
 
     public Page<Destination> getAllDestinations(int pageNo, int pageSize) {
@@ -49,6 +49,17 @@ public class DestinationService {
 
     public List<Destination> searchDestinations(String query) {
         return destinationRepository.findByCountryContainingIgnoreCaseOrCapitalContainingIgnoreCase(query, query);
+    }
+
+    private Destination mapRequestToEntity(DestinationRequest request) {
+        return Destination.builder()
+                .country(request.country())
+                .capital(request.capital())
+                .region(request.region())
+                .population(request.population())
+                .currency(request.currency())
+                .flagImageUrl(request.flagImageUrl())
+                .build();
     }
 }
 
