@@ -4,6 +4,7 @@ import com.fawry.task.backend.traveldestination.dto.LoginRequest;
 import com.fawry.task.backend.traveldestination.dto.LoginResponse;
 import com.fawry.task.backend.traveldestination.dto.RegisterRequest;
 import com.fawry.task.backend.traveldestination.dto.RegisterResponse;
+import com.fawry.task.backend.traveldestination.exception.UsernameAlreadyExistsException;
 import com.fawry.task.backend.traveldestination.model.Role;
 import com.fawry.task.backend.traveldestination.model.User;
 import com.fawry.task.backend.traveldestination.repository.UserRepository;
@@ -24,12 +25,12 @@ public class AuthService {
 
     public RegisterResponse register(RegisterRequest request) {
         if(userRepository.findByUsername(request.username()).isPresent()) {
-            throw new RuntimeException("Username already exists");
+            throw new UsernameAlreadyExistsException("Username already exists: " + request.username());
         }
         var user = User.builder()
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
-                .role(Role.valueOf(request.role().toUpperCase()))
+                .role(Role.USER)
                 .build();
         userRepository.save(user);
 
