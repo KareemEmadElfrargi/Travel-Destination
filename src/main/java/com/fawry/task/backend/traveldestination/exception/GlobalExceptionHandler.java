@@ -21,6 +21,12 @@ public class GlobalExceptionHandler {
     public ApiResponse<Void> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return ApiResponse.error(ex.getMessage());
     }
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiResponse<Void> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException ex) {
+        return ApiResponse.error(ex.getMessage());
+    }
+
 
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -33,14 +39,20 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
+
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
+            String errorMessage;
+            if ("password".equals(fieldName) && "Pattern".equals(error.getCode())) {
+                errorMessage = "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a digit, and a special character.";
+            } else {
+                errorMessage = error.getDefaultMessage();
+            }
             errors.put(fieldName, errorMessage);
         });
         return ApiResponse.<Map<String, String>>builder()
                 .success(false)
-                .message("Validation Failed")
+                .message("Validation failed")
                 .data(errors)
                 .build();
     }
